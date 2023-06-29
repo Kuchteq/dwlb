@@ -15,7 +15,7 @@ static bool center_title = true;
 // use title space as status text element
 static bool custom_title = false;
 // scale
-static uint32_t buffer_scale = 1;
+static uint32_t buffer_scale = 2;
 // font
 static char *fontstr = "monospace:size=12";
 // tag names if ipc is disabled
@@ -29,7 +29,7 @@ static pixman_color_t active_bg_color = { .red = 0x0000, .green = 0x5555, .blue 
 static pixman_color_t active_tag_bg_color = { .red = 0xb4b4, .green = 0x0000, .blue = 0xb4b4, .alpha = 0xffff, };
 static pixman_color_t active_other_mon_tag_bg_color = { .red = 0x7777, .green = 0x0000, .blue = 0x7777, .alpha = 0xffff, };
 static pixman_color_t active_other_mon_tag_fg_color = { .red = 0x0000, .green = 0x0000, .blue = 0x0000, .alpha = 0xffff, };
-static pixman_color_t inactive_fg_color = { .red = 0xbbbb, .green = 0xbbbb, .blue = 0xbbbb, .alpha = 0xffff, };
+static pixman_color_t inactive_fg_color = { .red = 0xeeee, .green = 0xeeee, .blue = 0xeeee, .alpha = 0xffff, };
 static pixman_color_t inactive_bg_color = { .red = 0x2222, .green = 0x2222, .blue = 0x2222, .alpha = 0xffff, };
 static pixman_color_t urgent_fg_color = { .red = 0x2222, .green = 0x2222, .blue = 0x2222, .alpha = 0xffff, };
 static pixman_color_t urgent_bg_color = { .red = 0xeeee, .green = 0xeeee, .blue = 0xeeee, .alpha = 0xffff, };
