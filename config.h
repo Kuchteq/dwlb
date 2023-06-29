@@ -15,9 +15,9 @@ static bool center_title = true;
 // use title space as status text element
 static bool custom_title = false;
 // scale
-static uint32_t buffer_scale = 2;
+static uint32_t buffer_scale = 1;
 // font
-static char *fontstr = "monospace:size=12";
+static char *fontstr = "Hack:size=18";
 // tag names if ipc is disabled
 static char *tags_noipc[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 

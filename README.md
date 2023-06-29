@@ -1,11 +1,17 @@
 <div align="center">
-<h1>dwlb</h1>
+<h1>Mariusz's build of dwlb</h1>
 
 A fast, feature-complete bar for [dwl](https://github.com/djpohly/dwl).
 
 ![screenshot 1](/screenshot1.png "screenshot 1")
-![screenshot 2](/screenshot2.png "screenshot 2")
 </div>
+
+## Differences
+This build besides opinionated config has:
+- setting the color of the active tag independent of the bar's active color
+- setting the color of active tag on the monitor that is unfocused
+- active color on status background instead of the dull gray one
+- added PKGBUILD file for having the pacman handle the dependency download and others + slightly modified makefile for it to work
 
 ## Dependencies
 * libwayland-client
