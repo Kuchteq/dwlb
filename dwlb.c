@@ -392,8 +392,8 @@ draw_frame(Bar *bar)
 		if (hide_vacant && !active && !occupied && !urgent)
 			continue;
 
-		pixman_color_t *fg_color = urgent ? &urgent_fg_color : (active ? &active_fg_color : &inactive_fg_color);
-		pixman_color_t *bg_color = urgent ? &urgent_bg_color : (active ? &active_bg_color : &inactive_bg_color);
+		pixman_color_t *fg_color = urgent ? &urgent_fg_color : (active ? bar->sel ? &active_fg_color : &active_other_mon_tag_fg_color : &inactive_fg_color);
+		pixman_color_t *bg_color = urgent ? &urgent_bg_color : (active ? bar->sel ? &active_tag_bg_color : &active_other_mon_tag_bg_color : &inactive_bg_color);
 		
 		if (!hide_vacant && occupied) {
 			pixman_image_fill_boxes(PIXMAN_OP_SRC, foreground,
@@ -422,7 +422,7 @@ draw_frame(Bar *bar)
 	
 	uint32_t status_width = TEXT_WIDTH(bar->status.text, bar->width - x, bar->textpadding);
 	draw_text(bar->status.text, bar->width - status_width, y, foreground,
-		  background, &inactive_fg_color, &inactive_bg_color,
+		  background, &inactive_fg_color, bar->sel ? &active_bg_color : &inactive_bg_color,
 		  bar->width, bar->height, bar->textpadding,
 		  bar->status.colors, bar->status.colors_l);
 
