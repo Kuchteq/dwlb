@@ -7,7 +7,7 @@ static bool bottom = false;
 // hide vacant tags
 static bool hide_vacant = true;
 // vertical pixel padding above and below text
-static uint32_t vertical_padding = 1;
+static uint32_t vertical_padding = 2;
 // allow in-line color commands in status text
 static bool status_commands = true;
 // center title text
@@ -17,7 +17,7 @@ static bool custom_title = false;
 // scale
 static uint32_t buffer_scale = 1;
 // font
-static char *fontstr = "Hack:size=18";
+static char *fontstr = "Hack:size=16";
 // tag names if ipc is disabled
 static char *tags_noipc[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
