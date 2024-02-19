@@ -15,7 +15,7 @@ static bool center_title = true;
 // use title space as status text element
 static bool custom_title = false;
 // scale
-static uint32_t buffer_scale = 1;
+static uint32_t buffer_scale = 2;
 // font
 static char *fontstr = "Hack:size=16";
 // tag names if ipc is disabled
