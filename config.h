@@ -1,3 +1,9 @@
+#define HEX_COLOR(hex)				\
+	{ .red   = ((hex >> 24) & 0xff) * 257,	\
+	  .green = ((hex >> 16) & 0xff) * 257,	\
+	  .blue  = ((hex >> 8) & 0xff) * 257,	\
+	  .alpha = (hex & 0xff) * 257 }
+
 // use ipc functionality
 static bool ipc = false;
 // initially hide all bars
@@ -24,12 +30,12 @@ static char *tags_names[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 // set 16-bit colors for bar
 // 8-bit color can be converted to 16-bit color by simply duplicating values e.g
 // 0x55 -> 0x5555, 0xf1 -> 0xf1f1
-static pixman_color_t active_fg_color = { .red = 0xeeee, .green = 0xeeee, .blue = 0xeeee, .alpha = 0xffff, };
-static pixman_color_t active_bg_color = { .red = 0x0000, .green = 0x5555, .blue = 0x7777, .alpha = 0xffff, };
-static pixman_color_t active_tag_bg_color = { .red = 0xb4b4, .green = 0x0000, .blue = 0xb4b4, .alpha = 0xffff, };
-static pixman_color_t active_other_mon_tag_bg_color = { .red = 0x7777, .green = 0x0000, .blue = 0x7777, .alpha = 0xffff, };
-static pixman_color_t active_other_mon_tag_fg_color = { .red = 0x0000, .green = 0x0000, .blue = 0x0000, .alpha = 0xffff, };
-static pixman_color_t inactive_fg_color = { .red = 0xeeee, .green = 0xeeee, .blue = 0xeeee, .alpha = 0xffff, };
-static pixman_color_t inactive_bg_color = { .red = 0x2222, .green = 0x2222, .blue = 0x2222, .alpha = 0xffff, };
-static pixman_color_t urgent_fg_color = { .red = 0x2222, .green = 0x2222, .blue = 0x2222, .alpha = 0xffff, };
-static pixman_color_t urgent_bg_color = { .red = 0xeeee, .green = 0xeeee, .blue = 0xeeee, .alpha = 0xffff, };
+static pixman_color_t active_fg_color = HEX_COLOR(0xeeeeeeff);
+static pixman_color_t active_bg_color = HEX_COLOR(0x005577ff);
+static pixman_color_t active_tag_bg_color = HEX_COLOR(0xb400b4ff);
+static pixman_color_t active_other_mon_tag_bg_color = HEX_COLOR(0x770077ff);
+static pixman_color_t active_other_mon_tag_fg_color = HEX_COLOR(0x000000ff);
+static pixman_color_t inactive_fg_color = HEX_COLOR(0xeeeeeeff);
+static pixman_color_t inactive_bg_color = HEX_COLOR(0x222222ff);
+static pixman_color_t urgent_fg_color = HEX_COLOR(0x222222ff);
+static pixman_color_t urgent_bg_color = HEX_COLOR(0xeeeeeeff);
