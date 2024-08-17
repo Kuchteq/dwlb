@@ -200,6 +200,7 @@ static struct fcft_font *font;
 static uint32_t height, textpadding, buffer_scale;
 
 static bool run_display;
+static pixman_color_t transparent = { .red = 0x0000, .green = 0x0000, .blue = 0x0000, .alpha = 0x0000 };
 
 #include "config.h"
 
@@ -425,10 +426,17 @@ draw_frame(Bar *bar)
 	x = draw_text(bar->layout, x, y, foreground, background,
 		      &inactive_fg_color, &inactive_bg_color, bar->width,
 		      bar->height, bar->textpadding, NULL, 0);
-	
+
+        pixman_image_fill_boxes(PIXMAN_OP_SRC, background,
+                        bar->sel ? &active_bg_color : &inactive_bg_color, 1,
+                        &(pixman_box32_t){
+                                .x1 = x, .x2 = bar->width,
+                                .y1 = 0, .y2 = bar->height
+                        });
+
 	uint32_t status_width = TEXT_WIDTH(bar->status.text, bar->width - x, bar->textpadding);
 	draw_text(bar->status.text, bar->width - status_width, y, foreground,
-		  background, &inactive_fg_color, bar->sel ? &active_bg_color : &inactive_bg_color,
+		  background, &inactive_fg_color, &transparent,
 		  bar->width, bar->height, bar->textpadding,
 		  bar->status.colors, bar->status.colors_l);
 
@@ -439,12 +447,6 @@ draw_frame(Bar *bar)
 	} else {
 		nx = MIN(x + bar->textpadding, bar->width - status_width);
 	}
-	pixman_image_fill_boxes(PIXMAN_OP_SRC, background,
-				bar->sel ? &active_bg_color : &inactive_bg_color, 1,
-				&(pixman_box32_t){
-					.x1 = x, .x2 = nx,
-					.y1 = 0, .y2 = bar->height
-				});
 	x = nx;
 	
 	x = draw_text(custom_title ? bar->title.text : bar->window_title,
@@ -1271,7 +1273,7 @@ parse_into_customtext(CustomText *ct, char *text)
 						Color *color;
 						ARRAY_APPEND(ct->colors, ct->colors_l, ct->colors_c, color);
 						if (!*arg)
-							color->color = inactive_bg_color;
+							color->color = transparent;
 						else
 							parse_color(arg, &color->color);
 						color->bg = true;
