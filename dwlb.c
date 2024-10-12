@@ -148,7 +148,7 @@ typedef struct {
 	uint32_t textpadding;
 	uint32_t stride, bufsize;
 	
-	uint32_t mtags, ctags, urg, sel;
+	uint32_t mtags, ctags, urg, sel, workspace;
 	char *layout, *window_title;
 	uint32_t layout_idx, last_layout_idx;
 	CustomText title, status;
@@ -354,6 +354,17 @@ draw_text(char *text,
 	
 	return nx;
 }
+static int
+draw_workspace(uint32_t wksp, uint32_t x, uint32_t y, uint32_t buf_height, pixman_image_t *foreground, pixman_color_t *fg_color) {
+        x+=15;
+        for (uint32_t i = 0; i < wksp; i++) {
+		pixman_image_fill_boxes(PIXMAN_OP_OVER, foreground,
+					fg_color, 1, &(pixman_box32_t){
+						.x1 = x, .x2 = x+buf_height/3,
+						.y1 = (wksp*buf_height/3), .y2 = ((wksp+1)*buf_height/3)});
+        }
+        return x + buf_height/3;
+}
 
 #define TEXT_WIDTH(text, maxwidth, padding)				\
 	draw_text(text, 0, 0, NULL, NULL, NULL, NULL, maxwidth, 0, padding, NULL, 0)
@@ -426,6 +437,8 @@ draw_frame(Bar *bar)
 	x = draw_text(bar->layout, x, y, foreground, background,
 		      &inactive_fg_color, &inactive_bg_color, bar->width,
 		      bar->height, bar->textpadding, NULL, 0);
+
+        draw_workspace(bar->workspace, x, y, bar->height, foreground, &active_fg_color);
 
         pixman_image_fill_boxes(PIXMAN_OP_SRC, background,
                         bar->sel ? &active_bg_color : &inactive_bg_color, 1,
@@ -1184,7 +1197,14 @@ read_stdin(void)
 				bar->sel = val;
 				bar->redraw = true;
 			}
+		} else if (!strcmp(wordbeg, "workspace")) {
+			ADVANCE();
+			if ((val = atoi(wordbeg)) != bar->workspace) {
+				bar->workspace = val;
+				bar->redraw = true;
+			}
 		}
+
 	}
 }
 
